@@ -12,6 +12,9 @@ spec:
     helm:
       valueFiles:
         - values.yaml
+      parameters:
+        - name: image.repository
+          value: ghcr.io/apache/flink-kubernetes-operator
   destination:
     namespace: default
     server: https://kubernetes.default.svc
