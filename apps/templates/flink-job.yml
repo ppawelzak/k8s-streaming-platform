@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flink-job
+  namespace: default
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/ppawelzak/k8s-streaming-platform.git'
+    path: charts/flink-job
+    targetRevision: main
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated: {}
