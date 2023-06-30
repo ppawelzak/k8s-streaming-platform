@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: flink-job
   namespace: default
+  annotations:
+    argocd.argoproj.io/sync-wave: '100'
 spec:
   project: default
   source:
@@ -12,5 +14,3 @@ spec:
   destination:
     namespace: default
     server: https://kubernetes.default.svc
-  syncPolicy:
-    automated: {}
