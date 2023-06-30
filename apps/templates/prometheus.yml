@@ -11,9 +11,11 @@ spec:
     targetRevision: 47.1.0
     helm:
       valueFiles:
-        - values.yaml
+        - charts/prometheus/values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: 'default'
   syncPolicy:
-    automated: {}
+    syncOptions:
+    - ServerSideApply=true
+    - CreateNamespace=true
