@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root
+  namespace: default
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/ppawelzak/k8s-streaming-platform.git'
+    path: apps
+    targetRevision: main
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated: {}
