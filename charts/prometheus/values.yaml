@@ -1,3 +1,6 @@
+prometheus-node-exporter:
+  hostRootFsMount:
+    enabled: false
 prometheusOperator:
   admissionWebhooks:
     failurePolicy: Ignore

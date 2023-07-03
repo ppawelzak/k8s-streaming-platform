@@ -9,18 +9,16 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  source:
-    repoURL: 'https://prometheus-community.github.io/helm-charts'
-    chart: kube-prometheus-stack
-    targetRevision: 47.1.0
-    helm:
-      values: |-
-        prometheus-node-exporter:
-          hostRootFsMount:
-            enabled: false
-        prometheusOperator:
-          admissionWebhooks:
-            failurePolicy: Ignore
+  sources:
+    - repoURL: 'https://github.com/ppawelzak/k8s-streaming-platform.git'
+      targetRevision: main
+      ref: myRepo
+    - repoURL: 'https://prometheus-community.github.io/helm-charts'
+      chart: kube-prometheus-stack
+      targetRevision: 47.1.0
+      helm:
+        valueFiles:
+          - $myRepo/charts/prometheus/values.yaml      
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: 'default'
