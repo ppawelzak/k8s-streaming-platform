@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: redpanda
+  namespace: default
+spec:
+  project: default
+  source:
+    repoURL: https://charts.redpanda.com
+    chart: redpanda
+    targetRevision: 4.0.52
+    helm:
+      valueFiles:
+        - values.yaml
+      parameters:
+        - name: external.domain
+          value: redpanda.local
+        - name: statefulset.initContainers.setDataDirOwnership.enabled
+          value: "true"
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: 'default'
+  syncPolicy:
+    automated: {}
