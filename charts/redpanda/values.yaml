@@ -1,0 +1,6 @@
+external:
+  domain: redpanda.local
+statefulset:
+  initContainers:
+    setDataDirOwnership:
+      enabled: true

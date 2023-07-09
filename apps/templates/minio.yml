@@ -5,26 +5,16 @@ metadata:
   namespace: default
 spec:
   project: default
-  source:
-    repoURL: https://github.com/minio/minio
-    path: helm/minio
-    targetRevision: master
-    helm:
-      valueFiles:
-        - values.yaml
-      parameters:
-        - name: replicas
-          value: "1"
-        - name: resources.requests.memory
-          value: 512Mi
-        - name: mode
-          value: standalone
-        - name: persistence.enabled
-          value: "false"
-        - name: rootUser
-          value: rootuser
-        - name: rootPassword
-          value: rootpass123
+  sources:
+    - repoURL: 'https://github.com/minio/minio'
+      path: helm/minio
+      targetRevision: master
+      helm:
+        valueFiles:
+          - $myrepo/charts/minio/values.yaml
+    - repoURL: 'https://github.com/ppawelzak/k8s-streaming-platform.git'
+      targetRevision: main
+      ref: myrepo
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: 'default'

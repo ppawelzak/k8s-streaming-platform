@@ -6,15 +6,15 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: 'https://github.com/ppawelzak/k8s-streaming-platform.git'
-      targetRevision: main
-      ref: myRepo
     - repoURL: 'https://charts.bitnami.com/bitnami'
       chart: postgresql
       targetRevision: 12.6.0
       helm:
         valueFiles:
-          - $myRepo/charts/postgres/values.yaml
+          - $myrepo/charts/postgres/values.yaml
+    - repoURL: 'https://github.com/ppawelzak/k8s-streaming-platform.git'
+      targetRevision: main
+      ref: myrepo
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: 'default'

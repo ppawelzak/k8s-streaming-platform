@@ -1,7 +1,7 @@
 global:
   postgresql:
     auth:
-      postgresPassword: "admin"
-      username: "user"
-      password: "admin"
-      database: "mydb"
+      postgresPassword: admin
+      username: user
+      password: admin
+      database: mydb
