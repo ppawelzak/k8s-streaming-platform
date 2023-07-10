@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: strimzi-kafka-operator
+  namespace: default
+spec:
+  project: default
+  source:
+    repoURL: 'https://strimzi.io/charts/'
+    chart: strimzi-kafka-operator
+    targetRevision: 0.35.1
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: 'default'
+  syncPolicy:
+    automated: {}
+
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnect
+metadata:
+  name: kafka-connect-cluster
+  namespace: default
+spec:
+  version: 3.4.0
+  replicas: 1
+  bootstrapServers: redpanda-external.default.svc.cluster.local:9094
+  authentication:
+    type: tls
+    certificateAndKey:
+      secretName: redpanda-external-cert
+      certificate: tls.crt
+      key: tls.key
+  config:
+    config.storage.replication.factor: -1
+    config.storage.topic: kafka-connect-config
+    group.id: kafka-connect
+    offset.storage.replication.factor: -1
+    offset.storage.topic: kafka-connect-offsets
+    status.storage.replication.factor: -1
+    status.storage.topic: kafka-connect-status
