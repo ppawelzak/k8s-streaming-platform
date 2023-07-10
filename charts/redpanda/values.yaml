@@ -4,3 +4,5 @@ statefulset:
   initContainers:
     setDataDirOwnership:
       enabled: true
+monitoring:
+  enabled: true
